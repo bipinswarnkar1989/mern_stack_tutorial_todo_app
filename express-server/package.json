@@ -1,0 +1,33 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "express server for mern todo app",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app_hooked.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bipinswarnkar1989/mern_stack_tutorial_todo_app.git"
+  },
+  "keywords": [
+    "express",
+    "server",
+    "todo",
+    "app"
+  ],
+  "author": "Bipin Swarnkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bipinswarnkar1989/mern_stack_tutorial_todo_app/issues"
+  },
+  "homepage": "https://github.com/bipinswarnkar1989/mern_stack_tutorial_todo_app#readme",
+  "dependencies": {
+    "babel-preset-es2015-node6": "^0.4.0",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.17.2",
+    "mongoose": "^4.11.7",
+    "morgan": "^1.8.2",
+    "source-map-support": "^0.4.16"
+  }
+}
