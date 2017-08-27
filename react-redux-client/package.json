@@ -4,8 +4,15 @@
   "private": true,
   "dependencies": {
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.11"
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-bootstrap": "^0.24.2",
+    "react-router-redux": "^4.0.8",
+    "react-scripts": "1.0.11",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
