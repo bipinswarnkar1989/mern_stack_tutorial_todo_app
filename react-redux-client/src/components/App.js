@@ -1,3 +1,4 @@
+// ./react-redux-client/src/components/App.js
 import React from 'react';
 import { Navbar,Nav,NavItem,MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -6,6 +7,12 @@ import './App.css';
 export default class App extends React.Component {
   constructor(props){
     super(props);
+    this.toggleAddTodo = this.toggleAddTodo.bind(this);
+  }
+
+  toggleAddTodo(e){
+    e.preventDefault();
+     this.props.mappedToggleAddTodo();
   }
 
   render(){
@@ -14,7 +21,7 @@ export default class App extends React.Component {
       <Navbar inverse  collapseOnSelect className="customNav">
     <Navbar.Header>
       <Navbar.Brand>
-        <a href="#">BookLibrary</a>
+        <a href="/#">Mern Stack Todo App</a>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
@@ -23,19 +30,11 @@ export default class App extends React.Component {
         <LinkContainer to="/">
            <NavItem eventKey={1}>Home</NavItem>
         </LinkContainer>
-        <LinkContainer to="/books">
-           <NavItem eventKey={2}>Books</NavItem>
-        </LinkContainer>
-        <LinkContainer to="/favourites">
-           <NavItem eventKey={3}>Favourites</NavItem>
-        </LinkContainer>
       </Nav>
       <Nav pullRight>
-      {this.props.location.pathname === '/books' &&
-      <LinkContainer to="/" onClick={this.toggleAddBook}>
-         <NavItem eventKey={1}>Add Book</NavItem>
+      <LinkContainer to="/" onClick={this.toggleAddTodo}>
+         <NavItem eventKey={1}>Add Todo</NavItem>
       </LinkContainer>
-      }
       </Nav>
     </Navbar.Collapse>
   </Navbar>

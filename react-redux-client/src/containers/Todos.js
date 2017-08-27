@@ -7,7 +7,7 @@ import Todos from '../components/Todos';
 const mapStateToProps = (state) => {
   return {
     //you can now say this.props.mappedAppSate
-    mappedTodosState: state.todos
+    mappedTodos: state.todos
   }
 }
 

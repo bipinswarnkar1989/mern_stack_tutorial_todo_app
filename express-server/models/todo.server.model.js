@@ -5,8 +5,8 @@ var Schema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  fullName: String,
-  todoText: String
+  todoText: String,
+  todoDesc: String
 });
 
 export default mongoose.model('Todo', Schema);
