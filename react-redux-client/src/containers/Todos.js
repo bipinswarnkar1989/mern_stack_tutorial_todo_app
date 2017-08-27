@@ -7,7 +7,7 @@ import Todos from '../components/Todos';
 const mapStateToProps = (state) => {
   return {
     //you can now say this.props.mappedAppSate
-    mappedTodos: state.todos
+    mappedTodoState: state.todoState
   }
 }
 
@@ -15,9 +15,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     //you can now say this.props.mappedAppActions
+    fetchTodos: () => dispatch(todoActions.fetchTodos()),
     mappedAddTodo: todo => dispatch(todoActions.addTodo(todo)),
     mappedDeleteTodo: todoToDelete => dispatch(todoActions.deleteTodo(todoToDelete)),
-    mappedEditTodo: todoToEdit => dispatch(todoActions.deleteTodo(todoToEdit))
+    mappedEditTodo: todoToEdit => dispatch(todoActions.editTodo(todoToEdit))
   }
 }
 

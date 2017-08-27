@@ -7,6 +7,10 @@ export default class Todos extends React.Component {
     super(props);
   }
 
+  componentWillMount(){
+    this.props.fetchTodos();
+  }
+
   showEditModal(bookToEdit){
      //this.props.mappedshowEditModal(todoToEdit);
   }
@@ -24,7 +28,7 @@ export default class Todos extends React.Component {
   }
 
   render(){
-    const todos = this.props.mappedTodos;
+    const todos = this.props.mappedTodoState.todos;
     return(
       <div className="col-md-12">
       <h3>Books</h3>

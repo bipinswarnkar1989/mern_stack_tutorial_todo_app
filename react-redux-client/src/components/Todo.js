@@ -5,7 +5,7 @@ export default class Todo extends React.Component {
 
 
   render(){
-    const todo = this.props.mappedTodo;
+    const todo = this.props.mappedTodoState.todo;
     return(
       <div className="todoDetail">
        <h2>Todo Detail</h2>
