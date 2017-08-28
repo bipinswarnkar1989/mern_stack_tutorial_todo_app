@@ -1,6 +1,6 @@
 // ./react-redux-client/src/actions/todoActions.js
 
-const apiUrl = "http://localhost:3001/api/";
+const apiUrl = "/api/";
 
 export const toggleAddBook = () => {
   return {
@@ -29,11 +29,11 @@ export const fetchTodos = () => {
     dispatch(fetchTodosRequest());
     // Returns a promise
     return fetch(apiUrl)
-                .then(response => res.json())
+                .then(response => response.json())
                 .then(data =>
                   // dispatch another action
                   // to consume data
-                  dispatch(fetchTodosSuccess(data.books,data.message))
+                  dispatch(fetchTodosSuccess(data.todos,data.message))
                 )
                 .then(error => {
                   throw(error);

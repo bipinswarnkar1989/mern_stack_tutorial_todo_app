@@ -1,6 +1,7 @@
 // ./react-redux-client/src/components/Todos.js
 import React from 'react';
 import { Alert,Glyphicon,Button,Modal } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 export default class Todos extends React.Component {
   constructor(props){
@@ -31,19 +32,21 @@ export default class Todos extends React.Component {
     const todos = this.props.mappedTodoState.todos;
     return(
       <div className="col-md-12">
-      <h3>Books</h3>
+      <h3>Todos</h3>
 
       <table className="table booksTable">
       <thead>
        <tr><th>Todo</th><th className="textCenter">Edit</th><th className="textCenter">Delete</th><th className="textCenter">View</th></tr>
       </thead>
       <tbody>
-      {todos.map((todo,i) => <tr key={i}>
-      <td>{todo.todoText}</td>
-       <td className="textCenter"><Button onClick={() => this.showEditModal(todo)} bsStyle="info" bsSize="xsmall"><Glyphicon glyph="pencil" /></Button></td>
-       <td className="textCenter"><Button onClick={() => this.showDeleteModal(todo)} bsStyle="danger" bsSize="xsmall"><Glyphicon glyph="trash" /></Button></td>
-       <td className="textCenter"><Link to={`/${todo._id}`}>View Details</Link> </td>
-       </tr> )}
+      {todos &&
+        todos.map((todo,i) => <tr key={i}>
+        <td>{todo.todoText}</td>
+         <td className="textCenter"><Button onClick={() => this.showEditModal(todo)} bsStyle="info" bsSize="xsmall"><Glyphicon glyph="pencil" /></Button></td>
+         <td className="textCenter"><Button onClick={() => this.showDeleteModal(todo)} bsStyle="danger" bsSize="xsmall"><Glyphicon glyph="trash" /></Button></td>
+         <td className="textCenter"><Link to={`/${todo._id}`}>View Details</Link> </td>
+         </tr> )
+      }
       </tbody>
       </table>
       </div>

@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   todoToEdit: null,
 }
 
-export const todoReducer = (currentState = INITIAL_STATE, action) => {
+export  const todoReducer = (currentState = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'FETCH_TODOS_REQUEST':
           return {
