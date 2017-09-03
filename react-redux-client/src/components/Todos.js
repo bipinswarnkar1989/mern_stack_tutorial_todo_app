@@ -12,6 +12,7 @@ export default class Todos extends React.Component {
     this.props.fetchTodos();
   }
 
+
   showEditModal(bookToEdit){
      //this.props.mappedshowEditModal(todoToEdit);
   }
@@ -29,18 +30,24 @@ export default class Todos extends React.Component {
   }
 
   render(){
-    const todos = this.props.mappedTodoState.todos;
+    const todoState = this.props.mappedTodoState;
+    const todos = todoState.todos;
     return(
       <div className="col-md-12">
-      <h3>Todos</h3>
-
+      <h3 className="centerAlign">Todos</h3>
+      {!todos && todoState.isFetching &&
+        <p>Loading todos....</p>
+      }
+      {todos.length <= 0 && !todoState.isFetching &&
+        <p>No Todos Available. Add A Todo to List here.</p>
+      }
+      {todos && todos.length > 0 && !todoState.isFetching &&
       <table className="table booksTable">
       <thead>
        <tr><th>Todo</th><th className="textCenter">Edit</th><th className="textCenter">Delete</th><th className="textCenter">View</th></tr>
       </thead>
       <tbody>
-      {todos &&
-        todos.map((todo,i) => <tr key={i}>
+        {todos.map((todo,i) => <tr key={i}>
         <td>{todo.todoText}</td>
          <td className="textCenter"><Button onClick={() => this.showEditModal(todo)} bsStyle="info" bsSize="xsmall"><Glyphicon glyph="pencil" /></Button></td>
          <td className="textCenter"><Button onClick={() => this.showDeleteModal(todo)} bsStyle="danger" bsSize="xsmall"><Glyphicon glyph="trash" /></Button></td>
@@ -49,6 +56,7 @@ export default class Todos extends React.Component {
       }
       </tbody>
       </table>
+    }
       </div>
     );
   }

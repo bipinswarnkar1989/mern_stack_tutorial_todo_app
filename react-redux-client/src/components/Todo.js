@@ -2,15 +2,26 @@
 import React from 'react';
 
 export default class Todo extends React.Component {
-
+  componentDidMount(){
+    this.props.mappedfetchTodoById(this.props.params.id);
+  }
 
   render(){
-    const todo = this.props.mappedTodoState.todo;
+    const todoState = this.props.mappedTodoState;
     return(
       <div className="todoDetail">
        <h2>Todo Detail</h2>
-       <h3>{todo.todoText}</h3>
-       <p>{todo.todoDesc}</p>
+         {!todoState.todo && todoState.isFetching &&
+           <div>
+             <p>Loading todo....</p>
+           </div>
+         }
+       {todoState.todo && !todoState.isFetching &&
+         <div>
+           <h3>{todoState.todo.todoText}</h3>
+           <p>{todoState.todo.todoDesc}</p>
+         </div>
+       }
       </div>
     );
   }

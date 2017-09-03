@@ -15,6 +15,7 @@ export const getTodos = (req,res) => {
 }
 
 export const addTodo = (req,res) => {
+  console.log(req.body);
   const newTodo = new Todo(req.body);
   newTodo.save((err,todo) => {
     if(err){

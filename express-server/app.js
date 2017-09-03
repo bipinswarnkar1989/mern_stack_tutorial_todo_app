@@ -5,12 +5,16 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose';
 import SourceMapSupport from 'source-map-support';
+import bb from 'express-busboy';
 
 // import routes
 import todoRoutes from './routes/todo.server.route';
 
 // define our app using express
 const app = express();
+
+// express-busboy to parse multipart/form-data
+bb.extend(app);
 
 // allow-cors
 app.use(function(req,res,next){
