@@ -31,7 +31,7 @@ export const updateTodo = (req,res) => {
     if(err){
     return res.json({'success':false,'message':'Some Error','error':err});
     }
-    console.log(book);
+    console.log(todo);
     return res.json({'success':true,'message':'Updated successfully',todo});
   })
 }

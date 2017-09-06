@@ -2,10 +2,13 @@
 import React from 'react';
 import { Alert,Glyphicon,Button,Modal } from 'react-bootstrap';
 import { Link } from 'react-router';
+import TodoEditForm from './TodoEditForm';
 
 export default class Todos extends React.Component {
   constructor(props){
     super(props);
+    this.hideEditModal = this.hideEditModal.bind(this);
+    this.submitEditTodo = this.submitEditTodo.bind(this);
   }
 
   componentWillMount(){
@@ -13,12 +16,28 @@ export default class Todos extends React.Component {
   }
 
 
-  showEditModal(bookToEdit){
-     //this.props.mappedshowEditModal(todoToEdit);
+  showEditModal(todoToEdit){
+     this.props.mappedshowEditModal(todoToEdit);
   }
 
   hideEditModal(){
-      //this.props.mappedhideEditModal();
+     this.props.mappedhideEditModal();
+  }
+
+  submitEditTodo(e){
+    e.preventDefault();
+    const editForm = document.getElementById('EditTodoForm');
+    if(editForm.todoText.value !== ""){
+      const data = new FormData();
+      data.append('id', editForm.id.value);
+     data.append('todoText', editForm.todoText.value);
+      data.append('todoDesc', editForm.todoDesc.value);
+      this.props.mappedEditTodo(data);
+    }
+    else{
+      return;
+    }
+
   }
 
   hideDeleteModal(){
@@ -32,6 +51,7 @@ export default class Todos extends React.Component {
   render(){
     const todoState = this.props.mappedTodoState;
     const todos = todoState.todos;
+    const editTodo = todoState.todoToEdit;
     return(
       <div className="col-md-12">
       <h3 className="centerAlign">Todos</h3>
@@ -57,6 +77,43 @@ export default class Todos extends React.Component {
       </tbody>
       </table>
     }
+
+    {/* Modal for editing todo */}
+    <Modal
+      show={todoState.showEditModal}
+      onHide={this.hideEditModal}
+      container={this}
+      aria-labelledby="contained-modal-title"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title">Edit Your Todo</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+    <div className="col-md-12">
+    {editTodo  &&
+    <TodoEditForm todoData={editTodo} editTodo={this.submitEditTodo} />
+    }
+    {editTodo  && todoState.isFetching &&
+      <Alert bsStyle="info">
+  <strong>Updating...... </strong>
+      </Alert>
+    }
+    {editTodo  && !todoState.isFetching && todoState.error &&
+      <Alert bsStyle="danger">
+  <strong>Failed. {todoState.error} </strong>
+      </Alert>
+    }
+    {editTodo  && !todoState.isFetching && todoState.successMsg &&
+      <Alert bsStyle="success">
+  Book <strong> {editTodo.todoText} </strong>{todoState.successMsg}
+      </Alert>
+    }
+    </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={this.hideEditModal}>Close</Button>
+      </Modal.Footer>
+    </Modal>
       </div>
     );
   }

@@ -144,6 +144,89 @@ export  const todoReducer = (currentState = INITIAL_STATE, action) => {
           }
         return nextState;
 
+  case 'SHOW_EDIT_MODAL':
+        return {
+          ...currentState,
+          todos:currentState.todos,
+          todo:null,
+          isFetching: false,
+          error: null,
+          successMsg:null,
+          showDeleteModal: false,
+          todoToDelete: null,
+          showEditModal: true,
+          todoToEdit: action.todo,
+          newTodo: null
+        }
+
+  case 'HIDE_EDIT_MODAL':
+        return {
+          ...currentState,
+          todos:currentState.todos,
+          todo:null,
+          isFetching: false,
+          error: null,
+          successMsg:null,
+          showDeleteModal: false,
+          todoToDelete: null,
+          showEditModal: false,
+          todoToEdit: null,
+          newTodo: null
+        }
+
+    case 'EDIT_TODO_REQUEST':
+          return {
+            ...currentState,
+            todos:currentState.todos,
+            todo:null,
+            isFetching: true,
+            error: null,
+            successMsg:null,
+            showDeleteModal: false,
+            todoToDelete: null,
+            showEditModal: true,
+            todoToEdit: action.todo,
+            newTodo: null
+          }
+
+    case 'EDIT_TODO_SUCCESS':
+         const updatedTodos = currentState.todos.map((todo) => {
+           if(todo._id !== action.todo._id){
+             //This is not the item we care about, keep it as is
+             return todo;
+           }
+           //Otherwise, this is the one we want to return an updated value
+           return { ...todo, ...action.todo }
+         })
+          return {
+            ...currentState,
+            todos:updatedTodos,
+            todo:null,
+            isFetching: false,
+            error: null,
+            successMsg:action.message,
+            showDeleteModal: false,
+            todoToDelete: null,
+            showEditModal: true,
+            todoToEdit: action.todo,
+            newTodo: null
+          }
+  case 'EDIT_TODO_FAILED':
+        return {
+          ...currentState,
+          todos:currentState.todos,
+          todo:null,
+          isFetching: false,
+          error: action.error,
+          successMsg:null,
+          showDeleteModal: false,
+          todoToDelete: null,
+          showEditModal: true,
+          todoToEdit: currentState.todoToEdit,
+          newTodo: null
+        }
+
+
     default:
        return currentState;
 
