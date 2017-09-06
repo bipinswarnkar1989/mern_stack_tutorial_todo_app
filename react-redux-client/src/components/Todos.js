@@ -9,6 +9,8 @@ export default class Todos extends React.Component {
     super(props);
     this.hideEditModal = this.hideEditModal.bind(this);
     this.submitEditTodo = this.submitEditTodo.bind(this);
+    this.hideDeleteModal = this.hideDeleteModal.bind(this);
+    this.cofirmDeleteTodo = this.cofirmDeleteTodo.bind(this);
   }
 
   componentWillMount(){
@@ -41,11 +43,15 @@ export default class Todos extends React.Component {
   }
 
   hideDeleteModal(){
-    //this.props.mappedhideDeleteModal();
+    this.props.mappedhideDeleteModal();
   }
 
   showDeleteModal(todoToDelete){
-//this.props.mappedshowDeleteModal(todoToDelete);
+    this.props.mappedshowDeleteModal(todoToDelete);
+  }
+
+  cofirmDeleteTodo(){
+    this.props.mappedDeleteTodo(this.props.mappedTodoState.todoToDelete);
   }
 
   render(){
@@ -114,6 +120,53 @@ export default class Todos extends React.Component {
         <Button onClick={this.hideEditModal}>Close</Button>
       </Modal.Footer>
     </Modal>
+
+{/* Modal for deleting todo */}
+    <Modal
+    show={todoState.showDeleteModal}
+    onHide={this.hideDeleteModal}
+    container={this}
+    aria-labelledby="contained-modal-title"
+  >
+    <Modal.Header closeButton>
+      <Modal.Title id="contained-modal-title">Delete Your Book</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+    {todoState.todoToDelete && !todoState.error && !todoState.isFetching &&
+      <Alert bsStyle="warning">
+ Are you sure you want to delete this todo <strong>{todoState.todoToDelete.todoText} </strong> ?
+</Alert>
+    }
+    {todoState.todoToDelete && todoState.error &&
+      <Alert bsStyle="warning">
+ Failed. <strong>{todoState.error} </strong>
+</Alert>
+    }
+
+    {todoState.todoToDelete && !todoState.error && todoState.isFetching &&
+      <Alert bsStyle="success">
+  <strong>Deleting.... </strong>
+</Alert>
+    }
+
+    {!todoState.todoToDelete && !todoState.error && !todoState.isFetching&&
+      <Alert bsStyle="success">
+ Todo <strong>{todoState.successMsg} </strong>
+</Alert>
+    }
+    </Modal.Body>
+    <Modal.Footer>
+     {!todoState.successMsg && !todoState.isFetching &&
+       <div>
+       <Button onClick={this.cofirmDeleteTodo}>Yes</Button>
+       <Button onClick={this.hideDeleteModal}>No</Button>
+       </div>
+    }
+    {todoState.successMsg && !todoState.isFetching &&
+      <Button onClick={this.hideDeleteModal}>Close</Button>
+    }
+    </Modal.Footer>
+  </Modal>
       </div>
     );
   }
